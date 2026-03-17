@@ -85,9 +85,3 @@ elif check == "o":
     print(f"勝者は、{my}になりました。")
 else:
     print(f"残念でした~。勝者は{enemy}でした。")
-    
-    
-    
-    
-    
-    
