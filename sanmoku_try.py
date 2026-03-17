@@ -6,7 +6,9 @@ import random
 #print("Hello world")
 
 #Gameリストを作成し、表示させてみる。
-Game=[0,1,2,3,4,5,6,7,8]
+Game= [
+    0,1,2,3,4,5,6,7,8
+]
 #print(Game)
 
 #ゲーム開始時に名前を入力してもらう。
@@ -20,12 +22,14 @@ enemy = random.choice(enemy_n)
 print(f"対戦相手に{enemy}が選ばれました!!")
 #盤面を3*3で構成する。
 def display():
-    for i in range(0, len(Game)):
-        #3回に1回は改行する。
-        if(i%3 == 2):
-            print(Game[i])
-        else:
-            print(Game[i], end="") #最後は改行しない。
+    print("\n")
+    for i in range(3):
+        # 各行の要素を | で繋いでみる
+        row = f" {Game[i*3]} | {Game[i*3+1]} | {Game[i*3+2]} "
+        print(row)
+        if i < 2:
+            print("---+---+---") # 行の間の区切り線
+    print("\n" + "=" * 13)
 
 def inputBoard(playerT):
     #座標を入力する
@@ -95,3 +99,6 @@ elif check == "o":
     print(f"勝者は、{my}になりました。")
 else:
     print(f"残念でした~。勝者は{enemy}でした。")
+    
+    
+    
