@@ -30,18 +30,28 @@ def display():
 def inputBoard(playerT):
     #座標を入力する
     if(playerT == "o"):
-        coo = int(input("0~8を入力して。"))
+        while True:
+            try:
+                coo = int(input("0~8を入力して。"))
+                
+                if 0 <= coo <= 8:
+                    if Game[coo] not in ["o", "x"]:
+                        break
+                    else:
+                        print("エラーです。すでに数字が入っています。")
+                else:
+                    #0~8以外が入力された場合
+                    print("0~8の中から、[半角数字で]入力してください！")
+            except ValueError:
+                print("数字を入力してください。")
     else:
-        coo = random.randint(0, 8)
-
-    #入力した座標が数字ではなく、oかxであれば再入力
-    if (Game[coo] == "o" or Game[coo] == "x"):
-        inputBoard(playerT)
-    #Gameに反映させる。
-    else:
-        Game[coo] = playerT
-        
-
+        while True:
+            coo = random.randint(0, 8)
+            if Game[coo] not in ["o", "x"]:
+                break
+    
+    Game[coo] = playerT
+            
 #ここまではターミナルで動かすことができた。
 #次に勝敗引き分け判定を決める。
 def win_lose():
