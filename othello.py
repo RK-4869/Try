@@ -63,13 +63,30 @@ def initialize_board():
 #次にボードを表示していく。ここでUX部分も意識してコードを書いてみる。
 #視覚的にも見やすくしたいため、点線や実線を使用していく。ターミナルでも使用できる罫字も使用してみる。
 #置くことのできる場所をmovesを引数として記述する。
-def display_board(board, moves=None):
-    if moves is None:
-        moves = []
+def display_board(board):
+    #列ラベル
+    print("\n A B C D E F G H")
+    #枠線部分を実装した。
+    print("   " + "-" * 17)
     
-    print()
+    for r in range(BOARD_SIZE):
+        #行番号を表示する
+        print(f"{r+1}|", end="  ")
+        
+        for c in range(BOARD_SIZE):
+            stone = STONE_DISPLAY[board[r][c]]
+            print(stone, end="  ")
+        
+        #右側の枠線として
+        print("|")
     
-    
+    #下の枠線として
+    print("  " + "-" * 17)
+
+#一度ボード画面を表示してみる。
+my_board = initialize_board()
+display_board(my_board)
+
 
 
 
