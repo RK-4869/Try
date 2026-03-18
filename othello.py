@@ -39,8 +39,40 @@ PLAYER_NAME = {
     WHITE: "白(⚪︎)"
 }
 
+#次にオセをを始める上で、ボードを常に初期化する必要がありそう。
+#テーブルボードはboard[行][列]で表現する。board[0][0]であれば左上のマスになる？
 
-print(STONE_DISPLAY[1])
+def initialize_board():
+    board = [
+        #8行8列の2次元リストを作成する。
+        [EMPTY for _ in range(BOARD_SIZE)]
+        for _ in range(BOARD_SIZE)
+    ]
+    #---オセロの初期配置---
+    #中央の4マスに白黒石を配置する。ボードの中央は、3,4の位置にあたる。
+    center = BOARD_SIZE // 2
+    
+    board[center -1][center -1] = WHITE #左上に白を置く。
+    board[center -1][center]    = BLACK #右上に黒を置く。
+    #同様に左下と右下にも石を置く。
+    board[center][center -1]    =BLACK  #右下
+    board[center][center]       =WHITE  #左下
+    
+    return board
 
-print(PLAYER_NAME[1])
+#次にボードを表示していく。ここでUX部分も意識してコードを書いてみる。
+#視覚的にも見やすくしたいため、点線や実線を使用していく。ターミナルでも使用できる罫字も使用してみる。
+#置くことのできる場所をmovesを引数として記述する。
+def display_board(board, moves=None):
+    if moves is None:
+        moves = []
+    
+    print()
+    
+    
+
+
+
+
+
 
