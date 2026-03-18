@@ -55,15 +55,17 @@ def initialize_board():
     board[center -1][center -1] = WHITE #左上に白を置く。
     board[center -1][center]    = BLACK #右上に黒を置く。
     #同様に左下と右下にも石を置く。
-    board[center][center -1]    =BLACK  #右下
-    board[center][center]       =WHITE  #左下
+    board[center][center -1]    =BLACK  #左下
+    board[center][center]       =WHITE  #右下
     
     return board
 
 #次にボードを表示していく。ここでUX部分も意識してコードを書いてみる。
 #視覚的にも見やすくしたいため、点線や実線を使用していく。ターミナルでも使用できる罫字も使用してみる。
 #置くことのできる場所をmovesを引数として記述する。
-def display_board(board):
+def display_board(board, valid_moves=None):
+    if valid_moves is None:
+        valid_moves = []
     #列ラベル
     print("\n A B C D E F G H")
     #枠線部分を実装した。
@@ -86,6 +88,45 @@ def display_board(board):
 #一度ボード画面を表示してみる。
 my_board = initialize_board()
 display_board(my_board)
+
+#石を置けるか判定するロジックを作る。
+def is_moves(board, row, col, player):
+    #指定したrowやcolにplayerの石を置くことができるか判定をしたい。
+    #置くことができる場合は、挟んでひっくり返せる方向のリストをさせるようにする。
+    #置くことができない場合は、空のスペースのリストを返す。
+    
+    #既に石がある場合
+    if board[row][col] != EMPTY:
+        return []
+    
+    #相手の色を特定する。
+    opponent = WHITE if player == BLACK else BLACK
+    
+    #挟める石がある方向を書くリストを作る。
+    valid_derections =[]
+    
+    #方向をすべて確認する。行の移動量をdr(dalta row)、dc(delta column)とすると、
+    for dr, dc in DIRECTIONS:
+        #行列それぞれの移動量を確認する。row+dcが上をチェックcするなら、row - 1?になりそう。
+        r, c = row + dr, col + dc
+        
+        #置いた石の真隣が相手側が置いた石かどうかチェックする
+        if 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE and board[r][c] == opponent:
+            #その方向に進む
+            while 0 <= r < BOARD_SIZE and 0 <= c < BOARD_SIZE:
+                #空のスペースであれば失敗する。
+                if board[r][c] == EMPTY:
+                    break
+                #自分の石が見つかるなら、その方向は挟んでひっくり返すことができる
+                if board[r][c] == player:
+                    valid_derections.append((dr, dc))
+                    break
+                #相手側の石の場合、その方向の先を見る。
+                r += dr
+                c += dc
+    
+    return valid_derections
+        
 
 
 
