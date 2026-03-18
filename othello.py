@@ -67,7 +67,7 @@ def display_board(board, valid_moves=None):
     if valid_moves is None:
         valid_moves = []
     #列ラベル
-    print("\n A B C D E F G H")
+    print("\n 1 2 3 4 5 6 7 8")
     #枠線部分を実装した。
     print("   " + "-" * 17)
     
@@ -126,7 +126,31 @@ def is_moves(board, row, col, player):
                 c += dc
     
     return valid_derections
+
+#place_stoneを使用して、実際に石を置くロジックを考えてみる。
+def place_stone(board, row, col, player):
+    #boardは現在のボード、row, colは石を置く場所、playerは黒か白を置くひと。
+    #最初に指定されたマスに石を置いてみるコードを書く。
+    board[row][col] = player
+    
+    #is_movesを用いてひっくり返せう方向のリストを取得する。
+    directions = is_moves(board, row, col, player)
+    
+    #返ってきた方向リストをfor文を使用して書いていく。
+    for dr, dc in directions:
+        #その方向の真隣から始める。
+        r, c = row + dr, col + dc
         
+        #相手の石があるならそのままひっくり返す。
+        #自分の石があれば止まるように書いてみる。
+        while board[r][c] != player:
+            #相手の石をひっくり返して自分の石に置き換える。
+            board[r][c] = player
+            #置き換えられたら次のマスに進む。
+            r += dr
+            c += dc
+            
+
 
 
 
