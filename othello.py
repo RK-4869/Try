@@ -149,12 +149,8 @@ def place_stone(board, row, col, player):
             #置き換えられたら次のマスに進む。
             r += dr
             c += dc
-            
 
-
-
-
-
+#一度中断して入門学習に戻る。
 
 
 
